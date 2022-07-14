@@ -97,7 +97,7 @@ describe('empty spec', () => {
     // - Validate that shoping cart badge is 2 (the red pop-up number)
     ItemPage.shopingCarBadge.should("have.text","2");
   })
-  it.only('Reset App State', () => {
+  it('Reset App State', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
@@ -117,13 +117,21 @@ describe('empty spec', () => {
     // - Validate that the badge no longer exists
     ItemPage.shopingCarBadge.should("not.exist");
   })
-  it('Validate shopping cart remove button functionality', () => {
+  it.only('Validate shopping cart remove button functionality', () => {
     // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Open “Sauce Labs Bolt T-Shirt”
+    ProductPage.itemTable.contains("Sauce Labs Bolt T-Shirt").click();
     // - Click “Add to cart”
+    ItemPage.addToCartButton.click();
     // - Validate that shoping cart badge is 1 (the red pop-up number)
+    ItemPage.shopingCarBadge.should("have.text","1");
     // - Click “Remove” button
+    ItemPage.removeCartButton.click();
     // - Validate that the badge no longer exists
+    ItemPage.shopingCarBadge.should("not.exist");
   })
   it('Buy a T-shirt', () => {
     // - Log into page with standard user credentials

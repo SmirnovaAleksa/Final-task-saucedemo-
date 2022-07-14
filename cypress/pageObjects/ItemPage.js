@@ -10,6 +10,9 @@ class ItemPage extends BasePage {
     static get backButton(){
         return cy.get('[data-test="back-to-products"]');
     }
+    static get removeCartButton(){
+        return cy.get("[class = 'btn btn_secondary btn_small btn_inventory']");
+    }
 }
 
 export default ItemPage;
