@@ -134,7 +134,7 @@ describe('empty spec', () => {
     // - Validate that the badge no longer exists
     ItemPage.shopingCarBadge.should("not.exist");
   })
-  it.only('Buy a T-shirt', () => {
+  it('Buy a T-shirt', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
