@@ -1,6 +1,7 @@
 import LoginPage from "../pageObjects/LoginPage"
 import ProductPage from "../pageObjects/ProductPage"
 import ItemPage from "../pageObjects/ItemPage"
+import CheckoutPage from "../pageObjects/CheckoutPage"
 
 describe('empty spec', () => {
   beforeEach(() => {
@@ -117,7 +118,7 @@ describe('empty spec', () => {
     // - Validate that the badge no longer exists
     ItemPage.shopingCarBadge.should("not.exist");
   })
-  it.only('Validate shopping cart remove button functionality', () => {
+  it('Validate shopping cart remove button functionality', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
@@ -133,19 +134,32 @@ describe('empty spec', () => {
     // - Validate that the badge no longer exists
     ItemPage.shopingCarBadge.should("not.exist");
   })
-  it('Buy a T-shirt', () => {
+  it.only('Buy a T-shirt', () => {
     // - Log into page with standard user credentials
-    // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Open “Test.allTheThings() T-Shirt (Red)”
+    ProductPage.itemTable.contains("Test.allTheThings() T-Shirt (Red)").click();
     // - Click “Add to cart”
+    ItemPage.addToCartButton.click();
     // - Click “Shopping cart”
+    ItemPage.shopingCarBadge.click();
     // - Click “Checkout”
+    CheckoutPage.checkoutButton.click();
     // - Fill in First name
+    CheckoutPage.firstName.type("Aleksandra");
     // - Fill in Last name
+    CheckoutPage.lastName.type("Smirnova");
     // - Fill in ZIP/Postal code
+    CheckoutPage.zipCode.type("LV-3601");
     // - Click Continue
+    CheckoutPage.continueButton.click();
     // - Validate item name “Test.allTheThings() T-Shirt (Red)”
+    CheckoutPage.itemName.should("have.text","Test.allTheThings() T-Shirt (Red)");
     // - Click “Finnish”
+    CheckoutPage.finishButton.click();
     // - Validate header “THANK YOU FOR YOUR ORDER”
+    CheckoutPage.completeHeader.should("have.text","THANK YOU FOR YOUR ORDER");
   })
 })
