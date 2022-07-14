@@ -1,4 +1,5 @@
 import LoginPage from "../pageObjects/LoginPage"
+import ProductPage from "../pageObjects/ProductPage"
 
 describe('empty spec', () => {
   beforeEach(() => {
@@ -16,12 +17,20 @@ describe('empty spec', () => {
   })
   it('Login with wrong password', () => {
     // - Enter username - standard_user
+    LoginPage.usernameInput.type("standard_user");
     // - Enter a wrong password
+    LoginPage.passwordInput.type("wrong_password");
+    LoginPage.loginButton.click();
     // - Validate that user sees error - “Epic sadface: Username and password do not match any user in this service”
+    LoginPage.errorMessage.should("have.text","Epic sadface: Username and password do not match any user in this service");
   })
-  it('Validate item amount', () => {
+  it.only('Validate item amount', () => {
     // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Validate that default item amount is 6
+    ProductPage.items.should("have.length","6");
   })
   it('Sort items - Price high to low', () => {
     // - Log into page with standard user credentials
