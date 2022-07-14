@@ -32,7 +32,7 @@ describe('empty spec', () => {
     // - Validate that default item amount is 6
     ProductPage.itemTable.should("have.length","6");
   })
-  it.only('Sort items - Price high to low', () => {
+  it('Sort items - Price high to low', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
@@ -41,18 +41,28 @@ describe('empty spec', () => {
     ProductPage.sortSelect.select("Price (high to low)");
     // - Validate that first item is “Sauce Labs Fleece Jacket”
     ProductPage.itemTable.first().within(($list) => {
-      ProductPage.itemName.should("contain.text","Sauce Labs Fleece Jacket");
+      ProductPage.itemName.should("have.text","Sauce Labs Fleece Jacket");
     })
     // - Validate that the first item costs “$49.99”
     ProductPage.itemTable.first().within(($list) => {
       ProductPage.itemPrice.should("have.text","$49.99");
     })
   })
-  it('Sort items - Price low to High', () => {
+  it.only('Sort items - Price low to High', () => {
     // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Set filter to Price low to high
+    ProductPage.sortSelect.select("Price (low to high)");
     // - Validate that first item is “Sauce Labs Onesie”
+    ProductPage.itemTable.first().within(($list) => {
+      ProductPage.itemName.should("have.text","Sauce Labs Onesie");
+    })
     // - Validate that the first item costs “$7.99”
+    ProductPage.itemTable.first().within(($list) => {
+      ProductPage.itemPrice.should("have.text","$7.99");
+    })
   })
   it('Sort items - Name (Z to A)', () => {
     // - Log into page with standard user credentials

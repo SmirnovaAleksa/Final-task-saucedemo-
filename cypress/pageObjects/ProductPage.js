@@ -9,6 +9,7 @@ class ProductPage extends BasePage {
     }
     static get itemName(){
         return cy.get("[class = 'inventory_item_name']");
+
     }
     static get itemPrice(){
         return cy.get("[class = 'inventory_item_price']");
