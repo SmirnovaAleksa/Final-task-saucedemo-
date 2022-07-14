@@ -77,7 +77,7 @@ describe('empty spec', () => {
       ProductPage.itemName.should("have.text","Test.allTheThings() T-Shirt (Red)");
     })
   })
-  it.only('Validate shopping cart badge amount', () => {
+  it('Validate shopping cart badge amount', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
@@ -97,15 +97,25 @@ describe('empty spec', () => {
     // - Validate that shoping cart badge is 2 (the red pop-up number)
     ItemPage.shopingCarBadge.should("have.text","2");
   })
-  it('Reset App State', () => {
+  it.only('Reset App State', () => {
     // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Open “Sauce Labs Bolt T-Shirt”
+    ProductPage.itemTable.contains("Sauce Labs Bolt T-Shirt").click();
     // - Click “Add to cart”
+    ItemPage.addToCartButton.click();
     // - Click “Back to products”
+    ItemPage.backButton.click();
     // - Validate that shoping cart badge is 1 (the red pop-up number)
+    ItemPage.shopingCarBadge.should("have.text","1");
     // - Click “Stack/Burger” icon
+    ProductPage.menuButton.click();
     // - Click “Reset App State”
+    ProductPage.resetButton.click();
     // - Validate that the badge no longer exists
+    ItemPage.shopingCarBadge.should("not.exist");
   })
   it('Validate shopping cart remove button functionality', () => {
     // - Log into page with standard user credentials

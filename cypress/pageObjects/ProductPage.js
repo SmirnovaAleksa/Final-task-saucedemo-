@@ -17,6 +17,12 @@ class ProductPage extends BasePage {
     static get shopingCarBadge(){
         return cy.get('.shopping_cart_badge');
     }
+    static get menuButton(){
+        return cy.get('#react-burger-menu-btn');
+    }
+    static get resetButton(){
+        return cy.get('#reset_sidebar_link');
+    }
 }
 
 export default ProductPage;
