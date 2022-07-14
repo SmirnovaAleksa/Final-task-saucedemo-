@@ -48,7 +48,7 @@ describe('empty spec', () => {
       ProductPage.itemPrice.should("have.text","$49.99");
     })
   })
-  it.only('Sort items - Price low to High', () => {
+  it('Sort items - Price low to High', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
@@ -64,10 +64,17 @@ describe('empty spec', () => {
       ProductPage.itemPrice.should("have.text","$7.99");
     })
   })
-  it('Sort items - Name (Z to A)', () => {
+  it.only('Sort items - Name (Z to A)', () => {
     // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Set filter to Name (Z to A)
+    ProductPage.sortSelect.select("Name (Z to A)");
     // - Validate that first item is “Test.allTheThings() T-Shirt (Red)”
+    ProductPage.itemTable.first().within(($list) => {
+      ProductPage.itemName.should("have.text","Test.allTheThings() T-Shirt (Red)");
+    })
   })
   it('Validate shopping cart badge amount', () => {
     // - Log into page with standard user credentials
