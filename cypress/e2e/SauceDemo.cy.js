@@ -1,5 +1,6 @@
 import LoginPage from "../pageObjects/LoginPage"
 import ProductPage from "../pageObjects/ProductPage"
+import ItemPage from "../pageObjects/ItemPage"
 
 describe('empty spec', () => {
   beforeEach(() => {
@@ -64,7 +65,7 @@ describe('empty spec', () => {
       ProductPage.itemPrice.should("have.text","$7.99");
     })
   })
-  it.only('Sort items - Name (Z to A)', () => {
+  it('Sort items - Name (Z to A)', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
@@ -76,15 +77,25 @@ describe('empty spec', () => {
       ProductPage.itemName.should("have.text","Test.allTheThings() T-Shirt (Red)");
     })
   })
-  it('Validate shopping cart badge amount', () => {
+  it.only('Validate shopping cart badge amount', () => {
     // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Open “Sauce Labs Bolt T-Shirt”
+    ProductPage.itemTable.contains("Sauce Labs Bolt T-Shirt").click();
     // - Click “Add to cart“
+    ItemPage.addToCartButton.click();
     // - Validate that shoping cart badge is 1 (the red pop-up number)
+    ItemPage.shopingCarBadge.should("have.text","1");
     // - Click “Back to products”
+    ItemPage.backButton.click();
     // - Open “Sauce Labs Bike Light”
+    ProductPage.itemTable.contains("Sauce Labs Bike Light").click();
     // - Click “Add to cart”
+    ItemPage.addToCartButton.click();
     // - Validate that shoping cart badge is 2 (the red pop-up number)
+    ItemPage.shopingCarBadge.should("have.text","2");
   })
   it('Reset App State', () => {
     // - Log into page with standard user credentials

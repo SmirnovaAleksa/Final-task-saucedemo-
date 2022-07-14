@@ -14,6 +14,9 @@ class ProductPage extends BasePage {
     static get itemPrice(){
         return cy.get("[class = 'inventory_item_price']");
     }
+    static get shopingCarBadge(){
+        return cy.get('.shopping_cart_badge');
+    }
 }
 
 export default ProductPage;
