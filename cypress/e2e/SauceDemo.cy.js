@@ -24,19 +24,29 @@ describe('empty spec', () => {
     // - Validate that user sees error - “Epic sadface: Username and password do not match any user in this service”
     LoginPage.errorMessage.should("have.text","Epic sadface: Username and password do not match any user in this service");
   })
-  it.only('Validate item amount', () => {
+  it('Validate item amount', () => {
     // - Log into page with standard user credentials
     LoginPage.usernameInput.type("standard_user");
     LoginPage.passwordInput.type("secret_sauce");
     LoginPage.loginButton.click();
     // - Validate that default item amount is 6
-    ProductPage.items.should("have.length","6");
+    ProductPage.itemTable.should("have.length","6");
   })
-  it('Sort items - Price high to low', () => {
+  it.only('Sort items - Price high to low', () => {
     // - Log into page with standard user credentials
+    LoginPage.usernameInput.type("standard_user");
+    LoginPage.passwordInput.type("secret_sauce");
+    LoginPage.loginButton.click();
     // - Set filter to Price high to low
+    ProductPage.sortSelect.select("Price (high to low)");
     // - Validate that first item is “Sauce Labs Fleece Jacket”
+    ProductPage.itemTable.first().within(($list) => {
+      ProductPage.itemName.should("contain.text","Sauce Labs Fleece Jacket");
+    })
     // - Validate that the first item costs “$49.99”
+    ProductPage.itemTable.first().within(($list) => {
+      ProductPage.itemPrice.should("have.text","$49.99");
+    })
   })
   it('Sort items - Price low to High', () => {
     // - Log into page with standard user credentials
